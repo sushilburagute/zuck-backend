@@ -10,7 +10,7 @@ export async function requiresAuth(req: AuthRequest, res: Response, next: NextFu
 
   if (!cookie) {
     return res.status(401).json({
-      message: " You are not authorized to perform this action.",
+      msg: " You are not authorized to perform this action.",
       success: false,
     });
   }
@@ -19,7 +19,7 @@ export async function requiresAuth(req: AuthRequest, res: Response, next: NextFu
 
   if (!token) {
     return res.status(401).json({
-      message: " You are not authorized to perform this action.",
+      msg: " You are not authorized to perform this action.",
       success: false,
     });
   }
@@ -32,7 +32,7 @@ export async function requiresAuth(req: AuthRequest, res: Response, next: NextFu
 
     if (!user) {
       return res.status(404).json({
-        message: "Your token is invalid",
+        msg: "Your token is invalid",
         success: false,
       });
     }
@@ -42,7 +42,7 @@ export async function requiresAuth(req: AuthRequest, res: Response, next: NextFu
   } catch (error) {
     console.log(error);
     res.status(401).json({
-      message: " You are not authorized to access this resource.",
+      msg: " You are not authorized to access this resource.",
       success: false,
     });
   }

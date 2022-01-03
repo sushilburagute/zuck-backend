@@ -18,7 +18,8 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", require("./router/AuthRoutes"));
-app.use("/api/dishes", require("./router/DishRoutes"));
+app.use("/api/food", require("./router/FoodRoutes"));
+// app.use("/api/admin", require("./router/AdminRoutes"));
 
 // Global Error Catcher
 
@@ -28,7 +29,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   }
 
   res.status(500).json({
-    message: err.message,
+    msg: err.message,
   });
 });
 
@@ -53,6 +54,10 @@ process.on("unhandledRejection", (error: Error) => {
 process.on("uncaughtException", (error: Error) => {
   log.error(`❎ uncaughtException :  ${error.stack}`);
   process.exit(1);
+});
+
+app.listen(process.env.PORT, () => {
+  log.info(`App listening at http://localhost:${process.env.PORT}`);
 });
 
 export = app;
