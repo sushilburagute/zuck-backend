@@ -9,7 +9,7 @@ export interface IUserData {
   };
 }
 
-const userData = new Schema<IUserData, Model<IUserData>, IUserData>({
+export const userData = new Schema<IUserData, Model<IUserData>, IUserData>({
   cart: {
     productId: {
       name: String,

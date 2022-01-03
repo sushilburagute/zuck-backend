@@ -1,9 +1,9 @@
 import { Schema, model, Model } from "mongoose";
 
 enum DishType {
-  DESSERT = "Dessert",
-  MAIN_COURSE = "Main Course",
-  FAST_FOOD = "Fast Food",
+  DESSERT = "DESSERT",
+  MAIN_COURSE = "MAIN_COURSE",
+  FAST_FOOD = "FAST_FOOD",
 }
 
 export interface IDish {

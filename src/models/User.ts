@@ -1,6 +1,7 @@
 import { Schema, model, Model } from "mongoose";
 import bycrypt from "bcrypt";
 import crypto from "crypto";
+import { IUserData, userData } from "./UserData";
 
 export interface IUser {
   email: string;
@@ -14,6 +15,7 @@ export interface IUser {
   getPasswordResetToken: () => Promise<String>;
   getEmailVerificationToken: () => Promise<String>;
   matchPasswords: (password: string) => Promise<Boolean>;
+  userData: IUserData;
 }
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
@@ -52,6 +54,7 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     passwordResetTokenExpire: {
       type: Date,
     },
+    userData: [userData],
   },
   {
     timestamps: true,
