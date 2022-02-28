@@ -40,7 +40,7 @@ const dishSchema = new Schema<IDish, Model<IDish>, IDish>(
     },
     type: {
       type: String,
-      enum: ["Main Course", "Fast Food", "Dessert"],
+      enum: ["MAIN_COURSE", "FAST_FOOD", "DESSERT"],
     },
     image: {
       type: String,

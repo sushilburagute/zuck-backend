@@ -37,6 +37,10 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (req, res
         return res.status(500).json({
           msg: "Something went wrong while registering you.",
         });
+      } else {
+        return res.status(200).json({
+          msg: "Your Account has been created",
+        });
       }
     });
   } catch (error) {
