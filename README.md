@@ -29,7 +29,7 @@ Backend for the Food Ecommerce Store, [Zuck](https://zuck-food.vercel.app/).
 
 # Todos
 
-1. Build in fake data using the seed route. //done
-1. Build :id route to search in db.
-1. Test the user auth. // done
-1. Build data for prod. // done
+1. User get for favs
+1. User get for cart
+1. User post for favs (doesn't need quantity)
+1. User post for carts (needs quantity)

@@ -1,7 +1,7 @@
-import { Schema, model, Model } from "mongoose";
+import { Schema, model, Model, ObjectId } from "mongoose";
 import bycrypt from "bcrypt";
 import crypto from "crypto";
-import { IUserData, userData } from "./UserData";
+import { IDish } from "./Dish";
 
 export interface IUser {
   email: string;
@@ -15,7 +15,8 @@ export interface IUser {
   getPasswordResetToken: () => Promise<String>;
   getEmailVerificationToken: () => Promise<String>;
   matchPasswords: (password: string) => Promise<Boolean>;
-  userData: IUserData;
+  foodCart: [ObjectId];
+  foodFavourites: [ObjectId];
 }
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
@@ -54,7 +55,18 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     passwordResetTokenExpire: {
       type: Date,
     },
-    userData: [userData],
+    foodCart: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Dish",
+      },
+    ],
+    foodFavourites: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Dish",
+      },
+    ],
   },
   {
     timestamps: true,

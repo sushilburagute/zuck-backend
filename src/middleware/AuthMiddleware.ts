@@ -7,15 +7,14 @@ import log from "../utility/log";
 
 export async function requiresAuth(req: AuthRequest, res: Response, next: NextFunction) {
   const cookie = req.cookies;
+  const token = req.headers["x-auth-token"] as string;
 
-  if (!cookie) {
+  if (!token) {
     return res.status(401).json({
       msg: " You are not authorized to perform this action.",
       success: false,
     });
   }
-
-  const { token } = cookie;
 
   if (!token) {
     return res.status(401).json({

@@ -24,8 +24,9 @@ export const dishList: RequestHandler = async (req, res) => {
 };
 
 export const findDish: RequestHandler = async (req, res) => {
+  const dishID = req.params.id;
   try {
-    const dishItem = await Dish.find({ _id: req.params.id });
+    const dishItem = await Dish.find({ _id: dishID });
     if (!dishItem) {
       return res.status(404).json({
         msg: "Sorry! That dish doesn't exist on our database.",

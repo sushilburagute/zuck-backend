@@ -29,8 +29,10 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (req, res
       email,
       password,
     });
-
-    const verificationToken = await user.getEmailVerificationToken();
+    const token = createToken({
+      _id: user._id,
+      email: user.email,
+    });
 
     await user.save((err) => {
       if (err) {
@@ -40,6 +42,7 @@ export const signUpHandler: RequestHandler<{}, {}, SignUpBody> = async (req, res
       } else {
         return res.status(200).json({
           msg: "Your Account has been created",
+          token,
         });
       }
     });

@@ -1,4 +1,4 @@
-import { Schema, model, Model } from "mongoose";
+import { Schema, model, Model, ObjectId } from "mongoose";
 
 enum DishType {
   DESSERT = "DESSERT",
@@ -12,6 +12,7 @@ export interface IDish {
   price: number;
   discount: number;
   rating: number;
+  quantity: number;
   veg: boolean;
   type: DishType;
   image: string;
@@ -34,6 +35,10 @@ const dishSchema = new Schema<IDish, Model<IDish>, IDish>(
     },
     rating: {
       type: Number,
+    },
+    quantity: {
+      type: Number,
+      default: 0,
     },
     veg: {
       type: Boolean,
