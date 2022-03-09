@@ -14,8 +14,7 @@ export const fetchFavouritesHandler: RequestHandler = async (req: AuthRequest, r
   }
 
   try {
-    // This should populate
-    const foundUser = await User.findOne({ email: user.email }).populate("dish");
+    const foundUser = await User.findOne({ email: user.email }).populate("foodFavourites");
     const foodFavourites = foundUser?.foodFavourites;
     res.status(200).json({
       foodFavourites,
@@ -38,10 +37,9 @@ export const fetchCartHandler: RequestHandler = async (req: AuthRequest, res: Re
   }
 
   try {
-    // This should populate
     const foundUser = await User.findOne({
       email: user.email,
-    });
+    }).populate("foodCart._id");
     const foodCart = foundUser?.foodCart;
     res.status(200).json({
       foodCart,
