@@ -15,7 +15,7 @@ export interface IUser {
   getPasswordResetToken: () => Promise<String>;
   getEmailVerificationToken: () => Promise<String>;
   matchPasswords: (password: string) => Promise<Boolean>;
-  foodCart: [ObjectId];
+  foodCart: [{ _id: ObjectId; quantity: number }];
   foodFavourites: [ObjectId];
 }
 
@@ -57,8 +57,14 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     },
     foodCart: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Dish",
+        _id: {
+          type: Schema.Types.ObjectId,
+          ref: "Dish",
+        },
+        quantity: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
     foodFavourites: [

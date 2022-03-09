@@ -16,8 +16,9 @@ export const fetchFavouritesHandler: RequestHandler = async (req: AuthRequest, r
   try {
     // This should populate
     const foundUser = await User.findOne({ email: user.email }).populate("dish");
+    const foodFavourites = foundUser?.foodFavourites;
     res.status(200).json({
-      foundUser,
+      foodFavourites,
     });
   } catch (error) {
     res.status(500).json({
@@ -68,19 +69,6 @@ export const modifyFavouritesHandler: RequestHandler = async (req: AuthRequest, 
     const foundUser = await User.findOne({
       email: user.email,
     });
-    const favExists = await User.findOne(
-      {
-        email: user.email,
-      },
-      {
-        foodFavourites: id,
-      }
-    );
-
-    log.info(favExists);
-
-    // const favourites = foundUser?.userData.favourites.push(_id);
-
     switch (type) {
       case "ADD_TO_FAVOURITES":
         const isFavourited = await User.findOneAndUpdate(
@@ -95,7 +83,7 @@ export const modifyFavouritesHandler: RequestHandler = async (req: AuthRequest, 
           { new: true, useFindAndModify: false }
         );
         res.status(200).json({
-          foundUser,
+          isFavourited,
         });
         break;
       case "REMOVE_FROM_FAVOURITES":
@@ -111,7 +99,7 @@ export const modifyFavouritesHandler: RequestHandler = async (req: AuthRequest, 
           }
         );
         res.status(200).json({
-          foundUser,
+          isUnfavourited,
         });
         break;
       default:
@@ -129,4 +117,94 @@ export const modifyFavouritesHandler: RequestHandler = async (req: AuthRequest, 
   }
 };
 
-export const modifyCartHandler: RequestHandler = async (req: AuthRequest, res: Response) => {};
+export const modifyCartHandler: RequestHandler = async (req: AuthRequest, res: Response) => {
+  const user = req.user;
+  const type = req.body.type;
+  const id = req.body._id;
+  const quantity = req.body.quantity || 1;
+
+  if (!user) {
+    return res.status(404).json({
+      msg: "Data for the user was not found on the server.",
+    });
+  }
+
+  try {
+    const foundUser = await User.findOne({
+      email: user.email,
+    });
+    switch (type) {
+      case "ADD_TO_CART":
+        const addedToCart = await User.findOneAndUpdate(
+          {
+            email: user.email,
+          },
+          {
+            $addToSet: {
+              foodCart: { _id: id, quantity: quantity },
+            },
+          },
+          { new: true, useFindAndModify: false }
+        );
+        res.status(200).json({
+          addedToCart,
+        });
+        break;
+      case "REMOVE_FROM_CART":
+        const removedFromCart = await User.findOneAndUpdate(
+          {
+            email: user.email,
+          },
+          {
+            $pull: {
+              foodCart: { _id: id, quantity: quantity },
+            },
+          }
+        );
+        res.status(200).json({
+          removedFromCart,
+        });
+        break;
+      case "ADD_QUANTITY_IN_CART":
+        const addQuantityToCart = await User.findOneAndUpdate(
+          {
+            email: user.email,
+          },
+          {
+            foodCart: { _id: id, quantity: quantity + 1 },
+          },
+          { new: true, useFindAndModify: false }
+        );
+        res.status(200).json({
+          addQuantityToCart,
+        });
+        break;
+      case "SUBTRACT_QUANTITY_IN_CART":
+        const subtractQuantityFromCart = await User.findOneAndUpdate(
+          {
+            email: user.email,
+          },
+          {
+            foodCart: { _id: id, quantity: quantity - 1 },
+          },
+          { new: true, useFindAndModify: false }
+        );
+        res.status(200).json({
+          subtractQuantityFromCart,
+        });
+        break;
+
+      default:
+        res.status(200).json({
+          foundUser,
+        });
+        break;
+    }
+  } catch (error) {
+    res.status(500).json({
+      msg: "There was some error while performing the action on your cart.",
+      code: "INTERNAL_ERROR",
+      error: error,
+    });
+  }
+};
