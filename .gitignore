@@ -1,0 +1,6 @@
+node_modules
+.env
+logs
+.DS_Store
+dist
+next-app/node_modules
