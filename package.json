@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/app.ts",
-    "build": "tsc && yarn build:prod",
+    "build": "tsc",
     "start": "yarn build && cross-env NODE_ENV=development node bin/www",
     "start:prod": "cross-env NODE_ENV=development node bin/www"
   },
