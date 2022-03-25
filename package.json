@@ -2,12 +2,15 @@
   "name": "zuck-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0 <17.5.0"
+  },
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev src/app.ts",
     "build": "tsc",
-    "start": "cross-env NODE_ENV=production && node bin/www",
-    "start:prod": "cross-env NODE_ENV=development node bin/www"
+    "start": "node ./dist/app.js",
+    "start:prod": "node dist/app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
