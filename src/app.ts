@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use("/api/auth", require("./router/AuthRoutes"));
 app.use("/api/food", require("./router/FoodRoutes"));
 app.use("/api/user", require("./router/UserRoutes"));
-app.use("/api/admin", require("./router/AdminRoutes"));
+// app.use("/api/admin", require("./router/AdminRoutes"));
 
 // Global Error Catcher
 
