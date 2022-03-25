@@ -133,7 +133,7 @@ export const modifyCartHandler: RequestHandler = async (req: AuthRequest, res: R
     });
     switch (type) {
       case "ADD_TO_CART":
-        const addedToCart = await User.findOneAndUpdate(
+        const updatedCart = await User.findOneAndUpdate(
           {
             email: user.email,
           },
@@ -145,11 +145,11 @@ export const modifyCartHandler: RequestHandler = async (req: AuthRequest, res: R
           { new: true, useFindAndModify: false }
         );
         res.status(200).json({
-          addedToCart,
+          updatedCart,
         });
         break;
       case "REMOVE_FROM_CART":
-        const removedFromCart = await User.findOneAndUpdate(
+        const updatedCart = await User.findOneAndUpdate(
           {
             email: user.email,
           },
@@ -160,35 +160,59 @@ export const modifyCartHandler: RequestHandler = async (req: AuthRequest, res: R
           }
         );
         res.status(200).json({
-          removedFromCart,
+          updatedCart,
         });
         break;
       case "ADD_QUANTITY_IN_CART":
-        const addQuantityToCart = await User.findOneAndUpdate(
+        const removeDuplicate = await User.findOneAndUpdate(
           {
             email: user.email,
           },
           {
-            foodCart: { _id: id, quantity: quantity + 1 },
+            $pull: {
+              foodCart: { _id: id, quantity: quantity },
+            },
+          }
+        );
+        const updatedCart = await User.findOneAndUpdate(
+          {
+            email: user.email,
+          },
+          {
+            $addToSet: {
+              foodCart: { _id: id, quantity: quantity + 1 },
+            },
           },
           { new: true, useFindAndModify: false }
         );
         res.status(200).json({
-          addQuantityToCart,
+          updatedCart,
         });
         break;
       case "SUBTRACT_QUANTITY_IN_CART":
-        const subtractQuantityFromCart = await User.findOneAndUpdate(
+        const removeDuplicate = await User.findOneAndUpdate(
           {
             email: user.email,
           },
           {
-            foodCart: { _id: id, quantity: quantity - 1 },
+            $pull: {
+              foodCart: { _id: id, quantity: quantity },
+            },
+          }
+        );
+        const updatedCart = await User.findOneAndUpdate(
+          {
+            email: user.email,
+          },
+          {
+            $addToSet: {
+              foodCart: { _id: id, quantity: quantity - 1 },
+            },
           },
           { new: true, useFindAndModify: false }
         );
         res.status(200).json({
-          subtractQuantityFromCart,
+          updatedCart,
         });
         break;
 
