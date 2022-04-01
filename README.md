@@ -1,17 +1,65 @@
-# Zuck Backend
+<h1 align="center">
+<br>
+  <img src="https://github.com/sushilburagute/zuck-frontend/blob/main/public/meta.png?raw=true" alt="dapr" width="640">
+<br>
+<br>
+<b>Zuck Backend</b>
+</h1>
 
-Backend for the Food Ecommerce Store, [Zuck](https://zuck-food.vercel.app/).
+<p align="center">
+A backend built for an Food Ecommerce Store, <a href='https://zuck-food.vercel.app/'>Zuck</a>.
+</p>
 
-### Tech Stack
+<p align="center">
+<img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white">
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white">
+</p>
 
-1. expressJS
-1. typescript
-1. mongoose
-1. jsonwebtoken
+<hr />
+
+## Built With
+
+- ⚡ **NodeJS** — JavaScript runtime built on Chrome's V8 JavaScript engine.
+- ⚡ **ExpressJS** - Fast, unopinionated, minimalist web framework for node.
+- ⚡ **Typescript** — TypeScript is a language for application-scale JavaScript.
+- ⚡ **Mongoose** — Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+- ⚡ **JSONwebtoken** — An implementation of JSON Web Tokens.
+
+## Getting started
+
+1. Clone this repo using `https://github.com/sushilburagute/zuck-backend.git`
+2. Move yourself to the appropriate directory<br />
+3. Run `yarn` to install dependencies<br />
+4. Run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/licenses/MIT) page for details.
+
+<br/>
+
+## Author
+
+Sushil Buragute - [Twitter](https://twitter.com/codetastic1) - [Linkedin](https://www.linkedin.com/in/sushil-buragute/) - [Portfolio](https://sush.vercel.app)
+
+<br/>
+<br/>
 
 ---
 
-# API Documentation
+<h1 align="center">
+<b>API Documentation</b>
+<br>
+</h1>
 
 ## .env Config
 
